@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join Worms lobby</title>
+<style>
+  body { font-family: system-ui, sans-serif; text-align: center; margin-top: 20vh; }
+</style>
+</head>
+<body>
+  <h1>Joining lobby…</h1>
+  <p id="msg">Steam should open in a moment.</p>
+  <p><a id="link" href="#">Click here if nothing happens</a></p>
+<script>
+  const p = new URLSearchParams(location.search);
+  const lobby = p.get("l") || "";
+  const owner = p.get("o") || "0";
+  // only digits are allowed, so this page cannot be abused to open other links
+  if (/^\d+$/.test(lobby) && /^\d+$/.test(owner)) {
+    const url = "steam://joinlobby/70600/" + lobby + "/" + owner;
+    document.getElementById("link").href = url;
+    location.href = url;
+  } else {
+    document.getElementById("msg").textContent = "Invalid link.";
+  }
+</script>
+</body>
+</html>
